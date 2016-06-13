@@ -10,9 +10,12 @@
 
     //variables are declared with a $ followed with the name of the variable.
     $name = "Fernando";
+    $lastName = "Fernandez";
+    //HTML tags can be assigned to variables.
+    $hello = "<h1>Hello</h1>";
     $number = 100;
 
-    echo $name;
+    echo $hello;
 
      ?>
 
