@@ -1,30 +1,26 @@
 <?php
 
-// Nullable and void types:
+// catching and responding to multiple exception types 
 
-// class User
-// {
-//     protected $age;
+class ChargeRejected extends Exception {}
+class NotEnoughFunds extends Exception {}
 
-//     public function age() : ?int
-//     {
-//         return $this->age;
-//     }
-// }
-
-// var_dump($age);
-
-// callable: doesn't matter what is given to the function as long as it can be called.
-class User {
-    public function subscribe(?callable $callback = null)
+class User
+{
+    public function subscribe()
     {
-        var_dump('subscribing...');
-
-        if ($callback) $callback();
-    }
+        throw new NotEnoughFunds;
+    }   
 }
 
-// (new User)->subscribe(function() {
-//     var_dump('responce');
-// });
-(new User)->subscribe();
+function flash($message) { var_dump($message); }
+
+try {
+
+    (new User)->subscribe();
+
+} catch (ChargeRejected | NotEnoughFunds $e) {
+
+    flash('Failed');
+
+}
