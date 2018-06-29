@@ -1,26 +1,30 @@
 <?php
 
-// catching and responding to multiple exception types 
+// iterable pseudo-type
 
-class ChargeRejected extends Exception {}
-class NotEnoughFunds extends Exception {}
+function dumpAll(iterable $items) {
+    foreach ($items as $item) {
 
-class User
+        var_dump($item);
+
+    }
+}
+
+class Collection implements IteratorAggregate
 {
-    public function subscribe()
+    protected $items;
+
+    public function __construct($items)
     {
-        throw new NotEnoughFunds;
-    }   
+        $this->items = $items;
+    }
+
+    public function getIterator()
+    {
+        return new ArrayIterator($this->items);
+    }
 }
 
-function flash($message) { var_dump($message); }
+$collection = new Collection(['one', 'two', 'three']);
 
-try {
-
-    (new User)->subscribe();
-
-} catch (ChargeRejected | NotEnoughFunds $e) {
-
-    flash('Failed');
-
-}
+dumpAll($collection);
