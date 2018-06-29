@@ -1,37 +1,30 @@
 <?php
 
-/*
-symmetric array destructuring
-*/
+// Nullable and void types:
 
-$book = ['The Book Title', 'Bob Belcher'];
+// class User
+// {
+//     protected $age;
 
-//list($title, $author) = $book; // Old
+//     public function age() : ?int
+//     {
+//         return $this->age;
+//     }
+// }
 
-[$firstTitle, $firstAuthor] = $book; //short array syntax
+// var_dump($age);
 
-// var_dump($firstTitle, $firstAuthor);
+// callable: doesn't matter what is given to the function as long as it can be called.
+class User {
+    public function subscribe(?callable $callback = null)
+    {
+        var_dump('subscribing...');
 
-// or
-
-$bookTwo = ['title' => 'A New Book Title', 'author' => 'Linda Belcher'];
-
-['title' => $newTitle, 'author' => $newAuthor] = $bookTwo;
-
-// var_dump($newTitle, $newAuthor);
-
-// also
-
-$bookCollection = [
-
-    ['title' => 'Harry Potter I', 'author' => 'JK Rowling'],
-
-    ['title' => 'Harry Potter II', 'author' => 'JK Rowling']
-
-];
-
-foreach($bookCollection as ['title' => $titleCollection, 'author' => $authorCollection]) {
-
-    var_dump($titleCollection, $authorCollection);
-
+        if ($callback) $callback();
+    }
 }
+
+// (new User)->subscribe(function() {
+//     var_dump('responce');
+// });
+(new User)->subscribe();
